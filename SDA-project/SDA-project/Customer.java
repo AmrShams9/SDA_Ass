@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Customer {
     private String name;
-
+    private Account account;
     EmailService email;
 
     public Customer(String name, double balance) {
@@ -31,5 +31,14 @@ public class Customer {
 
     public EmailService getEmail() {
         return email;
+    }
+
+
+    public void createAccount(int accountId, String password, double initialBalance) {
+        this.account = new Account(accountId, password, initialBalance,null);
+    }
+
+    public boolean login(int accountId, String password) {
+        return account.Check(accountId, password);
     }
 }
