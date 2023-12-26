@@ -15,4 +15,6 @@ public interface OrderType {
 
 
     ArrayList getProductName();
+
+    void setStatus(String newStatus);
 }
