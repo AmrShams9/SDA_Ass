@@ -9,7 +9,7 @@ public class Account {
     private int accountId;
     private String password;
     private double balance;
-    private List<Orders> orders;
+    private List<OrderType> orders;
     private Location location;
 
     public Account(int accountId, double balance) {
@@ -46,17 +46,17 @@ public class Account {
         balance += amount;
     }
 
-    public List<Orders> getOrders() {
+    public List<OrderType> getOrders() {
 
         return orders;
     }
 
-    public void placeOrder(Orders order) {
+    public void placeOrder(OrderType order) {
 
         orders.add(order);
     }
 
-    public void cancelOrder(Orders order) {
+    public void cancelOrder(OrderType order) {
         orders.remove(order);
 
     }
