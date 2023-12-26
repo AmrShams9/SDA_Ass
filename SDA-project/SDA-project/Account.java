@@ -4,6 +4,7 @@ import com.NotificationManagementSystem.SDAproject.CompositePattern.CompoundOrde
 import com.NotificationManagementSystem.SDAproject.CompositePattern.OrderType;
 import com.NotificationManagementSystem.SDAproject.CompositePattern.Orders;
 import com.NotificationManagementSystem.SDAproject.CompositePattern.Product;
+import com.NotificationManagementSystem.SDAproject.Cart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +90,6 @@ public class Account {
         return cart.getProducts();
     }
 
-    public void clearCart() {
-        cart.clearCart();
-    }
 
     public double calculateCartTotal() {
         return cart.calculateTotal();
@@ -111,7 +109,7 @@ public class Account {
   public void purchase(Cart cart)
   {
       deductBalance(cart.calculateTotal());
-      clearCart();
+      cart.clearCart();
   }
 
 
