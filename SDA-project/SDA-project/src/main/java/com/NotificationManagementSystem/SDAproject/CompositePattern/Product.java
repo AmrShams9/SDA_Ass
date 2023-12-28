@@ -1,23 +1,31 @@
 package com.NotificationManagementSystem.SDAproject.CompositePattern;
-public class Product implements Composite{
+
+import com.NotificationManagementSystem.SDAproject.Account;
+import com.NotificationManagementSystem.SDAproject.ObserverPattern.Observer;
+import com.NotificationManagementSystem.SDAproject.ObserverPattern.Subject;
+import com.NotificationManagementSystem.SDAproject.TemplatePattern.EmailService;
+
+import java.util.ArrayList;
+
+public class Product implements Composite, Subject {
 
     private String name;
     private long serialNumber;
     private String category;
     private double price;
     private String vendor;
+    private ArrayList<Observer> observerList;
+    private String availability;
 
-
-
-   public Product(String name , double price , String category, String vendor)
-   {
+    public Product(String name, double price, String category, String vendor) {
         this.name = name;
-        this.price= price;
-        this .category = category;
+        this.price = price;
+        this.category = category;
         this.vendor = vendor;
-
-
+        this.observerList = new ArrayList<>();
+        this.availability = "Avalible";
     }
+
     public Product setName(String name) {
         this.name = name;
         return this;
@@ -39,22 +47,62 @@ public class Product implements Composite{
     }
 
     public Product createProduct() {
-
         return new Product(name, price, category, vendor);
     }
 
     @Override
     public void getChild(int i) {
-
+        // As a leaf node, a Product doesn't have children
+        throw new UnsupportedOperationException("Leaf nodes do not have children");
     }
 
     @Override
     public void add(Composite composite) {
-
+        // As a leaf node, a Product cannot have children
+        throw new UnsupportedOperationException("Leaf nodes do not support adding children");
     }
 
     @Override
     public void delete(Composite composite) {
+        // As a leaf node, a Product cannot have children to delete
+        throw new UnsupportedOperationException("Leaf nodes do not have children to delete");
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    public void setAvailability(boolean availible , Observer account, EmailService notification ){
+        availability = this.name + (availible ? "Available" : "Not Available");
+        Notify(account, notification);
+    }
+
+    @Override
+    public void subscribe(Observer account)
+    {
+        observerList.add(account);
+
+    }
+
+    @Override
+    public void unsubscribe(Observer account)
+    {
+        if(observerList.contains(account)){
+            observerList.remove(account);
+        }else {
+            System.out.println("There is No active User");
+        }
+
+    }
+
+    @Override
+    public void Notify(Observer account, EmailService notification)
+    {
+
+        for (Observer observer : observerList) {
+
+            observer.update(availability);
+
+        }
 
     }
 }

@@ -3,21 +3,25 @@ package com.NotificationManagementSystem.SDAproject;
 import com.NotificationManagementSystem.SDAproject.CompositePattern.OrderType;
 import com.NotificationManagementSystem.SDAproject.TemplatePattern.EmailService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Notifications {
+public class Notifications implements EmailService {
 
     private Queue<EmailService> notificationsQueue;
     private String context;
+    private ArrayList<EmailService> messages;
 
     public Notifications() {
         this.notificationsQueue = new LinkedList<>();
+        this.messages = new ArrayList<>();
     }
 
     public Notifications(String context) {
         this.notificationsQueue = new LinkedList<>();
         this.context = context;
+        this.messages = new ArrayList<>();
     }
 
     public Queue<EmailService> getNotificationsQueue() {
@@ -36,15 +40,34 @@ public class Notifications {
         this.context = context;
     }
 
-    public void sentToAccount(Customer customer, EmailService notification, OrderType order) {
-        notification.showNotification(customer, order);
+    public void sentToAccount(Account customer, EmailService notification, OrderType order, String context) {
+        notification = new Notifications(context);
+        // notification.showNotification(customer, order);
         notificationsQueue.add(notification);
+        EmailService headNotification = notificationsQueue.peek();
+        if (headNotification == notification) {
+            notificationsQueue.poll(); // Remove the head of the queue
+            customer.getAccNotifications().add(notification);
+            notification.showNotification(customer, order);
+        } else {
+            System.out.println("Wait for your Turn");
+        }
     }
 
-    public void showNotifications() {
+    public void showNotificationsQueue() {
         System.out.println("Showing notifications for context: " + context);
         for (EmailService notification : notificationsQueue) {
             System.out.println("Notification: " + notification);
         }
+    }
+
+    public void pop(EmailService notification) {
+        notificationsQueue.poll(); // Remove the head of the queue
+    }
+
+    @Override
+    public void service() {
+        // Implement service method if neede
+        System.out.println("method not used yet:)");
     }
 }

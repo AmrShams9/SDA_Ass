@@ -1,16 +1,17 @@
 package com.NotificationManagementSystem.SDAproject.TemplatePattern;
 
+import com.NotificationManagementSystem.SDAproject.Account;
 import com.NotificationManagementSystem.SDAproject.CompositePattern.OrderType;
 import com.NotificationManagementSystem.SDAproject.Customer;
 
 public interface EmailService {
-    default void showNotification(Customer customer, OrderType order) {
+    default void showNotification(Account customer, OrderType order) {
         String template = "Dear {x}, your booking of the {y} is confirmed. Thanks for using our store :)";
         String personalizedMessage = template
                 .replace("{x}", customer.getName())
                 .replace("{y}", order.getProductName().toString());
 
-        sendEmail(customer.getEmail().toString(), "Order Confirmation", personalizedMessage);
+        sendEmail(customer.getName(), "Order Confirmation", personalizedMessage);
     }
 
     private void sendEmail(String to, String subject, String content){

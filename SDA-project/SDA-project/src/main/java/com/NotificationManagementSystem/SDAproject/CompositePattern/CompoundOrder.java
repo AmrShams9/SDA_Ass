@@ -1,8 +1,7 @@
 package com.NotificationManagementSystem.SDAproject.CompositePattern;
 
-import com.NotificationManagementSystem.SDAproject.Customer;
-import com.NotificationManagementSystem.SDAproject.Location;
-import com.NotificationManagementSystem.SDAproject.PlaceHolder;
+import com.NotificationManagementSystem.SDAproject.*;
+import com.NotificationManagementSystem.SDAproject.CommandPattern.OrderShippingCancellationCommand;
 
 import java.util.ArrayList;
 
@@ -14,8 +13,10 @@ public class CompoundOrder implements Composite, OrderType {
     private ArrayList<OrderType> orders;
     private ArrayList<PlaceHolder> placeHolders;
     private ArrayList<Customer> customers;
+    private ArrayList<OrderShippingCancellationCommand> commands;
+    public DataBase data;
 
-    public CompoundOrder(String orderId , ArrayList<Customer> customers) {
+    public CompoundOrder(String orderId , ArrayList<Location> destination , ArrayList<PlaceHolder> placeHolder) {
         this.orderId = orderId;
         this.customers = new ArrayList<>();
         this.destinations = new ArrayList<>();
@@ -45,14 +46,16 @@ public class CompoundOrder implements Composite, OrderType {
     }
 
     @Override
-    public void createOrder(Customer account, OrderType order) {
+    public void createOrder(Account account, OrderType order) {
+
         // Adding a product to the order
-        orders.add(order);
+
+        account.addOrder(order,data);
         System.out.println("Order created for customer " + account.getName());
     }
 
     @Override
-    public boolean modifyOrder(Customer account, OrderType order) {
+    public boolean modifyOrder(Account account, OrderType order) {
         // Modifying the order details
         if (orders.contains(order)) {
             // Perform modifications
@@ -65,10 +68,10 @@ public class CompoundOrder implements Composite, OrderType {
     }
 
     @Override
-    public boolean cancelOrder(Customer account, OrderType order) {
+    public boolean cancelOrder(Account account, OrderType order) {
         // Canceling the order
-        if (orders.contains(order)) {
-            orders.remove(order);
+        if (account.getOrders().contains(order)) {
+            account.removeOrder(order,data);
             System.out.println("Order canceled for customer " + account.getName());
             return true;
         } else {
@@ -78,7 +81,16 @@ public class CompoundOrder implements Composite, OrderType {
     }
 
     @Override
+    public boolean cancelShipping(Account account, OrderType order) {
+        if ((order.cancelOrder(account, order))){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public ArrayList getProductName() {
+
         return products;
     }
 
