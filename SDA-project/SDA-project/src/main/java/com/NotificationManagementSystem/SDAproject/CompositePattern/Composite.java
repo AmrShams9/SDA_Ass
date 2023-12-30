@@ -8,4 +8,5 @@ public interface Composite {
     void delete(Composite composite);
 
 
+    double getPrice();
 }

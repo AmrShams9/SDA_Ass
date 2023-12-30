@@ -2,9 +2,13 @@ package com.NotificationManagementSystem.SDAproject;
 
 import com.NotificationManagementSystem.SDAproject.CompositePattern.Orders;
 import com.NotificationManagementSystem.SDAproject.CompositePattern.Product;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+@Component
+@Lazy
 
 public class Cart {
     private int cartId;

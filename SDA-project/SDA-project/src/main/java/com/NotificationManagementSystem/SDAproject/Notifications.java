@@ -2,11 +2,14 @@ package com.NotificationManagementSystem.SDAproject;
 
 import com.NotificationManagementSystem.SDAproject.CompositePattern.OrderType;
 import com.NotificationManagementSystem.SDAproject.TemplatePattern.EmailService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
+@Component
+@Lazy
 public class Notifications implements EmailService {
 
     private Queue<EmailService> notificationsQueue;

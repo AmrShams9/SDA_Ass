@@ -5,10 +5,13 @@ import com.NotificationManagementSystem.SDAproject.CommandPattern.OrderPlacement
 import com.NotificationManagementSystem.SDAproject.CompositePattern.*;
 import com.NotificationManagementSystem.SDAproject.ObserverPattern.Observer;
 import com.NotificationManagementSystem.SDAproject.TemplatePattern.EmailService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
+@Lazy
 public class Account implements Observer {
     private int accountId;
     private String name;
@@ -144,4 +147,12 @@ public class Account implements Observer {
         accNotifications.add(new2);
 
     }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
 }

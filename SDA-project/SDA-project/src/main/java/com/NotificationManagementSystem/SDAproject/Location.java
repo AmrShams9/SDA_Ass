@@ -5,6 +5,10 @@ public class Location {
     private String ipAddress;
 
     // Constructors (if needed)
+    public Location(String Location){
+        this.location = Location;
+                this.ipAddress = "197.2.43.77";
+    }
 
     // Setters
 

@@ -13,6 +13,10 @@ public interface EmailService {
 
         sendEmail(customer.getName(), "Order Confirmation", personalizedMessage);
     }
+    default String showNoty(){
+        String template = "Dear {User}, your booking of the {Mobil Charger} is confirmed. Thanks for using our store :)";
+        return template;
+    }
 
     private void sendEmail(String to, String subject, String content){
         System.out.println("Sending email to: " + to);

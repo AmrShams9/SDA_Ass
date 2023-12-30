@@ -6,6 +6,11 @@ import com.NotificationManagementSystem.SDAproject.CompositePattern.Orders;
 
 import com.NotificationManagementSystem.SDAproject.Customer;
 import com.NotificationManagementSystem.SDAproject.DataBase;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+@Component
+@Lazy
 
 public class OrderPlacementCancellationCommand implements OrderCancellationCommand {
     private Account customer;

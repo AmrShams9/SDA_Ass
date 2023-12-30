@@ -15,6 +15,11 @@ public class PlaceHolder {
         this.location = location;
         this.shipment = shipment;
     }
+    public PlaceHolder(String name) {
+        this.name = name;
+        this.location = location;
+        this.shipment = shipment;
+    }
 
     // Setters
 

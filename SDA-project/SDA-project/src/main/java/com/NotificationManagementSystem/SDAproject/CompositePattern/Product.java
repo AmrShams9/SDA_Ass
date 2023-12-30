@@ -1,12 +1,19 @@
 package com.NotificationManagementSystem.SDAproject.CompositePattern;
 
 import com.NotificationManagementSystem.SDAproject.Account;
+import com.NotificationManagementSystem.SDAproject.Location;
 import com.NotificationManagementSystem.SDAproject.ObserverPattern.Observer;
 import com.NotificationManagementSystem.SDAproject.ObserverPattern.Subject;
+import com.NotificationManagementSystem.SDAproject.PlaceHolder;
 import com.NotificationManagementSystem.SDAproject.TemplatePattern.EmailService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+@Component
+@Lazy
 public class Product implements Composite, Subject {
 
     private String name;
@@ -16,6 +23,7 @@ public class Product implements Composite, Subject {
     private String vendor;
     private ArrayList<Observer> observerList;
     private String availability;
+    private PlaceHolder placeHolder;
 
     public Product(String name, double price, String category, String vendor) {
         this.name = name;
@@ -23,7 +31,7 @@ public class Product implements Composite, Subject {
         this.category = category;
         this.vendor = vendor;
         this.observerList = new ArrayList<>();
-        this.availability = "Avalible";
+        this.availability = "True";
     }
 
     public Product setName(String name) {
@@ -104,5 +112,29 @@ public class Product implements Composite, Subject {
 
         }
 
+    }
+    public String getName() {
+        return name;
+    }
+
+    public long getSerialNumber() {
+        return serialNumber;
+    }
+
+
+    public PlaceHolder getPlaceHolder() {
+        return placeHolder;
+    }
+
+    public boolean isAvailable() {
+        Random rand = new Random();
+        int x = rand.nextInt(20);  // Use nextInt to generate a random integer in the range [0, 20)
+
+        // Adjust the condition to make it more balanced
+        if (x > 10) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

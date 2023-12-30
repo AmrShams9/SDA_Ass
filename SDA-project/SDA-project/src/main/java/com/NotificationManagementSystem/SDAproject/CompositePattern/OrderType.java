@@ -20,4 +20,8 @@ public interface OrderType {
     ArrayList getProductName();
 
     void setStatus(String newStatus);
+
+    double calculateOrderAmount();
+
+    Object getOrderId();
 }
